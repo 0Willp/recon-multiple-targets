@@ -44,3 +44,7 @@ Run the script by passing the -l (list of domains) and -n (project name) argumen
 ```text
 python3 recon_scope.py -l scope_list.txt -n "Company_Name" 
 ```
+## ⚖️ Legal Disclaimer
+This project is for educational and ethical security research purposes only. The author is not responsible for any misuse of the tools installed by this script. Only target systems within authorized scope.
+
+Developed by 0WILLP 🐼 | Lifting code & Finding bugs
