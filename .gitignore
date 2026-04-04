@@ -1,0 +1,4 @@
+targets/
+__pycache__/
+*.txt
+!input_example.txt
