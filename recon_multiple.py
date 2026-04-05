@@ -2,6 +2,7 @@
 import os
 import subprocess
 import argparse
+import time
 from pathlib import Path
 
 # ── ANSI Colors ───────────────────────────────────────────────────────────────
@@ -36,6 +37,8 @@ def main():
 
     input_list = Path(args.list).resolve()
     project_name = args.name
+
+    start_time = time.time()
 
     if not input_list.exists():
         print(f"{R}[-]{RST} Error: Input list file '{input_list}' not found!")
@@ -119,7 +122,16 @@ def main():
         stats['alive'] = 0
 
     print_ok(f"Subdomains assets (HTTP/HTTPS): {stats['alive']}")
-    send_notification(f"🚀 Recon completed for {project_name}!\nAssets (httpx): {stats['alive']}/{stats['merged']}.")
+
+    end_time = time.time()
+    elapsed_seconds = int(end_time - start_time)
+    minutes, seconds = divmod(elapsed_seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    time_str = f"{hours}h {minutes}m {seconds}s" if hours > 0 else f"{minutes}m {seconds}s"
+
+    send_notification(
+        f"🚀 Recon completed for {project_name}!\nAssets (httpx): {stats['alive']}/{stats['merged']}\n⏱️ Total time: {time_str}")
+
 
     # Clean up
     print_step("Clearing temporary files.")
@@ -139,8 +151,8 @@ def main():
     print(f"{Y}{'─' * 46}{RST}")
     print(f" Total Unique: {C}{stats['merged']}{RST}")
     print(f" Total Assets: {G}{stats['alive']}{RST} (httpx)")
+    print(f" Total Time:   {B}{time_str}{RST} ⏱️")
     print(f"{G}{'─' * 46}{RST}\n")
-
 
 if __name__ == "__main__":
     main()
