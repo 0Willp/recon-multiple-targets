@@ -26,7 +26,7 @@ def count_lines(filepath: Path) -> int:
 
 
 def send_notification(msg: str):
-    subprocess.run(f'echo "{msg}" | notify -provider slack -silent', shell=True)
+    subprocess.run(f'echo "{msg}" | notify -silent', shell=True)
 
 
 def main():
